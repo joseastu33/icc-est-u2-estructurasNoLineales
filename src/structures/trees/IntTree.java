@@ -1,57 +1,16 @@
-package structures.node.trees;
+package structures.trees;
 
 
 import java.util.ArrayDeque;
 
 import structures.node.Node;
-import structures.trees.IntTree;
 
-
-public class App {
-    public static void main(String[] args) throws Exception {
-
-        runIntTree();
-    }
-
-    private static void runIntTree() {
-        IntTree arbolNumeros = new IntTree(); 
-        /// CONSTRUYO el Árbol
-        Node<Integer> nodo1 = new Node<Integer>();
-        Node<Integer> nodo2 = new Node<Integer>();
-        arbolNumeros.insert(nodo1);
-        arbolNumeros.insert(nodo2); //se manipula facil los nodos
-
-        Node<Integer> root = arbolNumeros.getRoot();
-        // Node<Integer> root = arbolNumeros.getRoot();
-
-        // root.setLeft(node2);
-        // root.setRight(node3);
-
-        // node2.setLeft(node4);
-        // node4.setRight(node5);
-
-        //// ERROR GENERA CLICLOS
-        // node5.setLeft(root);
-
-        arbolNumeros.insert(10);
-        arbolNumeros.insert(5);
-        arbolNumeros.insert(3);
-        arbolNumeros.insert(8); /// INORDER 3, 5, 8, 10, 15, 20
-        arbolNumeros.insert(20); /// POSTORDER 3 8 5 15 20 10
-        arbolNumeros.insert(15); // ANCHURA O NIVELES: 10 5 20 3 8 15
-
-        System.out.println("pre Order");
-
-        arbolNumeros.preOrder();
-        System.out.println("Pos Order");
-        arbolNumeros.posOrder();
-    }
-}
 
 // Clase que representa un árbol binario de enteros
 public class IntTree {
 
     private Node<Integer> root;
+    private int peso;
 
     /// no se pasa root como parámetro, porque al inicializar no puedo mandar un root
     public IntTree() { //queda vacío el constructor
@@ -81,9 +40,14 @@ public class IntTree {
         Node<Integer> node = new Node<Integer>(value); // |10| 
         root = insertRecursivo(root, node); // |10| -- simplemente lo inserta (AUN NO ES recursivo)
     }
-
+    //el peso cambia si inserto un nodo, por eso voy al metodo de insert
     public void insert(Node<Integer> value) { // 10
         root = insertRecursivo(root, value);
+        peso++;
+    }
+
+    public int getPeso(){
+        return peso;
     }
 
     // recursivo para insertar valores ARBOL BINARIO
@@ -148,8 +112,8 @@ public class IntTree {
         if(root == null){
             return;
         } 
-        ArrayDeque<Integer> colaNodos = new ArrayDeque<>();
-        colaNodos.add(root);
+        ArrayDeque<Node<Integer>> colaNodos = new ArrayDeque<>();
+        colaNodos.offer(root);
 
         while(!colaNodos.isEmpty()){
             Node<Integer> actualN = colaNodos.poll();
@@ -166,7 +130,7 @@ public class IntTree {
         //para la altura se considera que la cola
         //ha guardado los niveles, entonces se recorren los niveles de la cola 
         //y se suma 1 por cada nivel
-        alturaRecursivo(root);
+        alturaRecursivo();
     }
     public int alturaRecursivo(){
         if(root == null){
@@ -175,21 +139,86 @@ public class IntTree {
         ArrayDeque<Node<Integer>> colaNodos = new ArrayDeque<>();
         colaNodos.add(root);
         int alturaArbol = 0;
+
         while(!colaNodos.isEmpty()){
-            int nodosNivel = cola.size();
+            int nodosNivel = colaNodos.size();
             for(int i = 0; i < nodosNivel; i++){
                 Node<Integer> nodoActual = colaNodos.poll(); 
-                if(actual.getLeft() != null)
-                colaNodos.offer(actual.getLeft());
+                if(nodoActual.getLeft() != null)
+                colaNodos.offer(nodoActual.getLeft());
 
-                if(actual.getRight() != null)
-                colaNodos.offer(actual.getRight());
+                if(nodoActual.getRight() != null)
+                colaNodos.offer(nodoActual.getRight());
             }
         }
-        altura += 1;
-    return altura;
+        alturaArbol += 1;
+    return alturaArbol;
     }
+
+
+    private int weightRecursivo(Node<Integer> actual){
+        if(actual == null){
+            return 0;
+        }
+        int leftWeight = weightRecursivo(actual.getLeft());
+        int righWeight = weightRecursivo(actual.getRight());
+        return (leftWeight + righWeight + 1); 
+    }
+    //la complejidad espacial aumentó al crear la variable
 }
-    // inorder
-    // niveles
-    // altura    
+/*
+private static void runIntComparativaPesos() {
+        IntTree tree = new IntTree();
+        Random random = new Random();
+
+        final int TOTAL_NODOS = 50_000;
+        final int MIN = 1;
+        final int MAX = 50_000;
+
+        // Insertar 50 000 números aleatorios entre 1 y 50 000
+        for (int i = 0; i < TOTAL_NODOS; i++) {
+            int value = random.nextInt(MAX - MIN + 1) + MIN;
+            tree.insert(value);
+        }
+
+        // Medir peso con variable acumulada
+        long inicioPesoVariable = System.nanoTime();
+
+        int pesoVariable = tree.getPeso();
+
+        long finPesoVariable = System.nanoTime();
+
+        double tiempoPesoVariableMs = (finPesoVariable - inicioPesoVariable) / 1_000_000.0;
+
+        // Medir peso recursivo
+        long inicioPesoRecursivo = System.nanoTime();
+
+        int pesoRecursivo = tree.peso();
+
+        long finPesoRecursivo = System.nanoTime();
+
+        double tiempoPesoRecursivoMs = (finPesoRecursivo - inicioPesoRecursivo) / 1_000_000.0;
+
+        // Resultados
+        System.out.println("Cantidad de nodos insertados: " + TOTAL_NODOS);
+        System.out.println("Peso usando variable: " + pesoVariable);
+        System.out.println("Peso usando recursion: " + pesoRecursivo);
+
+        System.out.println();
+
+        System.out.println("Tiempo getPeso(): "
+                + tiempoPesoVariableMs + " ms");
+
+        System.out.println("Tiempo pesoRecursivo(): "
+                + tiempoPesoRecursivoMs + " ms");
+    }
+
+
+
+
+
+
+
+
+*/
+    
