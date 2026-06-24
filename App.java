@@ -1,9 +1,43 @@
-import structures.node.Node;
+import models.Persona;
+import structures.trees.BinaryTree;
 import structures.trees.IntTree;
-
+import structures.trees.Ejercicio1;
+import structures.trees.Ejercicio2;
+import structures.trees.Ejercicio3;
+import structures.trees.Ejercicio4;
 public class App {
     public static void main(String[] args) throws Exception {
 
+        System.out.println("Arbol original");
+        System.out.println("Imprimiendo arbol:");
+        Ejercicio1 ej1 = new Ejercicio1();
+        int[] numeros = {50, 30, 70, 20, 40, 60, 80};
+        ej1.insert(numeros);
+
+        BinaryTree<Integer> arbolBinarioMain = new BinaryTree<>();
+
+        for(int n : numeros){
+            arbolBinarioMain.insert(n);
+        }
+        System.out.println("Arbol invertido");
+        System.out.println("Imprimiendo arbol");
+        Ejercicio2 ej2 = new Ejercicio2();
+
+        ej2.invertRecursively(arbolBinarioMain.getRoot());
+        ej2.printTree(arbolBinarioMain.getRoot(), 0);
+
+        //ejercicio 3
+        System.out.println("EJERCICIO DE LISTAR NIVELES");
+        Ejercicio3 ej3 = new Ejercicio3();
+        ej3.listLevels(arbolBinarioMain.getRoot());
+        ej2.printTree(arbolBinarioMain.getRoot(), 0);
+        
+        //ejercicio 4
+        System.out.println("EJERCICIO CALCULO PROFUNDIDAD MAXIMA");
+        Ejercicio4 ej4 = new Ejercicio4();
+        ej4.maxDepth(arbolBinarioMain.getRoot());
+        ej2.printTree(arbolBinarioMain.getRoot(), 0);
+        
         runIntTree();
     }
 
@@ -37,5 +71,21 @@ public class App {
         arbolNumeros.preOrder();
         System.out.println("Pos Order");
         arbolNumeros.posOrder();
+    }
+    //person tiene 2 atributos nombre y edad, getters y setters, constructores y to string
+    // en app instancia el binary tree de tipo persona 
+    //ose BinaryTree person = new Binary Tree("Alice", 30)
+    public static void runPersonTree(){
+        BinaryTree<Persona> personTree = new BinaryTree<>(); //SI SE las personas no se sabe como se compararán las personas (por edad o nombre)
+        personTree.insert(new Persona("Alice", 30));
+        personTree.insert(new Persona("Bob", 25));
+        personTree.insert(new Persona("Diego", 35));
+        personTree.insert(new Persona("Rafael", 35));
+        personTree.insert(new Persona("Ana", 35));
+        
+        //orders
+        personTree.preOrder();
+        personTree.inOrder();
+        personTree.posOrder();
     }
 }

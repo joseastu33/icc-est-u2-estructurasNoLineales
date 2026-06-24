@@ -37,3 +37,19 @@ Esto considerando que se utiliza recursividad para explorar cada una de las posi
 ## Salida en consola
 
 ![alt text](image-6.png)
+
+## Ejercicio 3
+### Listar niveles en listas enlazadas
+
+![alt text](image.png)
+
+### Descripcion del ejercicio
+
+Dado la raiz de la cual pueden derivarse otras ramas, la implementacion de las colas
+permite dar al metodo la caracteristica de tener los niveles ordenados al momento de guardar
+la naturaleza del uso de una queue resulta en que, los demás elementos se van encolando detrás
+quedando de esta forma nivel por nivel: es decir, primero se guarda en una cola(ya se ordenan), 
+posteriormente se los implementa en una lista.
+
+## Salida en consola
+

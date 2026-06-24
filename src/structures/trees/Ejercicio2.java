@@ -7,13 +7,10 @@ public class Ejercicio2 {
         if(root == null){
             return;
         }
-        System.out.println("Arbol original");
-        System.out.println("Imprimiendo el árbol:");
-
         printTree(root.getRight(), nivel+1);
         //
         for(int i = 0; i < nivel; i++) {
-            System.out.println("\t");
+            System.out.print("\t");
         }
 
         System.out.println(root.getValue());
@@ -29,14 +26,12 @@ public class Ejercicio2 {
         //el post order primero visita el derecho luego el izquierdo
 
         //primero hago el metodo, luego comienzo a llamar
-        printTree(root, 0);
-
         Node<Integer> aux = root.getLeft();
         root.setLeft(root.getRight());
-        root.setRight(aux); //la derecha no se pierne
-
+        root.setRight(aux); //la derecha no se pierde
+        
+        //no procesar de nuevo dos veces (visitar de nuevo dos veces)
         invertRecursively(root.getLeft());
-        invertRecursively(root);
         invertRecursively(root.getRight());
 
         return root;
