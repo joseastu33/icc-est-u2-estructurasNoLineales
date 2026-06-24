@@ -1,3 +1,7 @@
+import java.util.Set;
+
+import collections.set.Sets;
+import models.Contacto;
 import models.Persona;
 import structures.trees.BinaryTree;
 import structures.trees.IntTree;
@@ -28,8 +32,8 @@ public class App {
 
         //ejercicio 3
         System.out.println("EJERCICIO DE LISTAR NIVELES");
-        Ejercicio3 ej3 = new Ejercicio3();
-        ej3.listLevels(arbolBinarioMain.getRoot());
+        //Ejercicio3 ej3 = new Ejercicio3();
+        //ej3.listLevels(arbolBinarioMain.getRoot());
         ej2.printTree(arbolBinarioMain.getRoot(), 0);
         
         //ejercicio 4
@@ -38,7 +42,9 @@ public class App {
         ej4.maxDepth(arbolBinarioMain.getRoot());
         ej2.printTree(arbolBinarioMain.getRoot(), 0);
         
-        runIntTree();
+        //runIntTree();
+
+        runSets();
     }
 
     private static void runIntTree() {
@@ -87,5 +93,60 @@ public class App {
         personTree.preOrder();
         personTree.inOrder();
         personTree.posOrder();
+    }
+
+    public static void runSets(){
+        Sets sets = new Sets();
+
+        //Primera implementacion: HashSet
+        Set<String> hashSet = sets.construirHashSet();
+        System.out.println(hashSet);
+        System.out.println("Tamaño: " + hashSet.size());
+        System.out.println(hashSet.contains("F"));
+        //HashSet posee METODO toString
+
+        //Segunda implementacion: LinkedHashSet
+        Set<String> linkedHashSet = sets.construirLinkedHashSet();
+        System.out.println(linkedHashSet);
+        System.out.println("Tamaño: " + linkedHashSet.size());
+        System.out.println(linkedHashSet.contains("B"));
+
+        //entre ambas no hay diferencia, hacen lo mismo
+        //pero si imprimimos varias veces en hashSet
+        //va a imprimir en diferente orden [B, A, C, D]
+
+        //este se diferencia de LinkedHashSet porque
+        //porque LinkedHashSet establece un orden de SIEMPRE
+        //sin cambiar para todos los elementos
+        Set<String> treeHashSet = sets.construirLinkedHashSet();
+        System.out.println(treeHashSet); //compara solo el primer caracter
+        System.out.println("Tamaño: " + treeHashSet.size());
+        System.out.println(treeHashSet.contains("B"));
+        //compara unicamente el primer caracter, si tengo 1Ggggggee compara el valor del 1 que en 
+        //en ASCII es menor que el valor del A
+
+        //si los caracteres son iguales se pasa al siguiente caracter
+        // 1 -->
+        // G
+        // g
+        // g
+        // g
+        // g
+        // g
+        // e
+        // e
+        System.out.println("TreSet");
+        Set<Contacto> trrSet = sets.construirTreeSetConComparador();
+        System.out.println(trrSet); //compara solo el primer caracter
+        System.out.println(trrSet.size());
+
+        System.out.println("TreSet con COMPARACION");
+        Set<Contacto> trrCompSet = sets.construirTreeSetConComparador();
+        System.out.println(trrCompSet);
+        System.out.println(trrCompSet.size());
+
+        //ingresaron los 6 hashCode, cada uno posee un HASHCODE DIFERENTE
+        //como tienen HASHCODE diferente, se agregan todos porque
+        //porque si bien son lo mismo tienen direcciones diferentes
     }
 }
