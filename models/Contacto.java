@@ -1,6 +1,6 @@
 package models;
 
-public class Contacto implements Comparable<Contacto>  {
+public class Contacto {
     private String nombre;
     private String apellido;
     private String telefono;
@@ -28,11 +28,6 @@ public class Contacto implements Comparable<Contacto>  {
         return "C[" + nombre + "," + apellido + "," + telefono + "]";
     }
 
-    @Override
-    public int compareTo(Contacto otro) {
-        return this.nombre.compareTo(otro.getNombre());
-        //en lugar de ponerle en el constructor le hago IMPLEMENTACION en la clase
-    }
 
     @Override
     public int hashCode() {

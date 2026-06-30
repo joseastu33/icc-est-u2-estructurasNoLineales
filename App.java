@@ -80,7 +80,7 @@ public class App {
     }
     //person tiene 2 atributos nombre y edad, getters y setters, constructores y to string
     // en app instancia el binary tree de tipo persona 
-    //ose BinaryTree person = new Binary Tree("Alice", 30)
+    //osea BinaryTree person = new Binary Tree("Alice", 30)
     public static void runPersonTree(){
         BinaryTree<Persona> personTree = new BinaryTree<>(); //SI SE las personas no se sabe como se compararán las personas (por edad o nombre)
         personTree.insert(new Persona("Alice", 30));
@@ -148,5 +148,9 @@ public class App {
         //ingresaron los 6 hashCode, cada uno posee un HASHCODE DIFERENTE
         //como tienen HASHCODE diferente, se agregan todos porque
         //porque si bien son lo mismo tienen direcciones diferentes
+
+        /// Averiguar por que el final prime = 31 
+        /// y tambien como funciona el equals que generó EL CODIGO;
+        /// 
     }
 }

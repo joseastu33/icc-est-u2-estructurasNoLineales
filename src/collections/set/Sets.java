@@ -48,7 +48,9 @@ public class Sets  {
         tSet.add("A");
  
     }
-    public Set<Contacto> construirTreeSetConComparador(){
+    public Set<Contacto> construirTreeSetConComparador((c1, c2) -> { 
+        return c1.getNombre().compareTo(c2.getNombre());})    
+    {
         //Set<Contacto> trrSet = new TreeSet<>((c1, c2) -> { 
             //se puede mandar FUNCIONES también al CONSTRUCTOR
             //return c1.getNombre().compareTo(c2.getNombre());}); //Es una funcion comparador
